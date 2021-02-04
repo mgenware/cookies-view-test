@@ -1,5 +1,7 @@
 import Cookies from 'js-cookie';
 
+/******** HTML Util *********/
+
 function createTD(val) {
   const td = document.createElement('td');
   td.textContent = val;
@@ -14,9 +16,17 @@ function createTR(tds) {
   return tr;
 }
 
+function reloadPage() {
+  window.location.reload();
+}
+
+/******** DOM Elements *********/
+
 const tableBody = document.getElementById('tableBody');
 const nameInput = document.getElementById('nameInput');
 const valInput = document.getElementById('valInput');
+
+/******** Main logic *********/
 
 function setCookie() {
   const name = nameInput.value;
@@ -31,8 +41,16 @@ function setCookie() {
   }
   console.log(`Cookie set ${name} = ${val}`);
   Cookies.set(name, val, { expires: 7 });
-  window.location.reload();
+  reloadPage();
 }
+
+document.getElementById('setBtn').addEventListener('click', () => {
+  setCookie();
+});
+
+document.getElementById('reloadBtn').addEventListener('click', () => {
+  reloadPage();
+});
 
 const randString = new Date().toTimeString().split(' ')[0];
 nameInput.value = randString;
@@ -42,5 +60,3 @@ const cookies = Cookies.get();
 for (const [k, v] of Object.entries(cookies)) {
   tableBody.appendChild(createTR([createTD(k), createTD(v)]));
 }
-
-window.setCookie = setCookie;
