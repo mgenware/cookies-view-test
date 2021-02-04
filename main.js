@@ -31,6 +31,7 @@ function setCookie() {
   }
   console.log(`Cookie set ${name} = ${val}`);
   Cookies.set(name, val, { expires: 7 });
+  window.location.reload();
 }
 
 const randString = new Date().toTimeString().split(' ')[0];
